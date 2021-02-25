@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<title>Bible Family Tree</title>
+		<meta name="description" content="An interactive family tree of people named in the Bible beginning with Adam." />
+
+		<script src="http://biblefamilytree.info/scripts/jquery/jquery.min.js" type="text/javascript"></script>
+		<script src="http://biblefamilytree.info/scripts/jquery/jquery-ui.min.js" type="text/javascript"></script>
+		<script src="http://biblefamilytree.info/scripts/jquery/jquery.scrollTo.min.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="http://biblefamilytree.info/styles/jquery/jquery-ui-min.css" type="text/css" media="all" />
+
+		<script type="text/javascript" src="http://biblefamilytree.info/scripts/d3/d3.v3.min.js"></script>
+		<script type="text/javascript" src="http://biblefamilytree.info/scripts/d3/d3.layout.js"></script>
+
+		<script type="text/javascript" src="http://biblefamilytree.info/scripts/visualization.js"></script>
+		<script type="text/javascript" src="http://biblefamilytree.info/scripts/pagescript.js"></script>
+		
+		<link type="text/css" rel="stylesheet" href="http://biblefamilytree.info/styles/styles-min.css"/>
+		<link type="text/css" rel="stylesheet" href="http://biblefamilytree.info/styles/reftagger/reftagger-min.css"/>
+	</head>
+	<body>
+		<div id="main">
+			<div id="titleNav"><img src="http://biblefamilytree.info/images/biblefamilytree.jpg" alt="Bible Family Tree icon" style="float:left;height:50px;width:50px;" /><h2>Bible Family Tree</h2></div>
+			<div id="social">
+				<div id="socialContents">
+					<div class="addthis_toolbox addthis_default_style ">
+						<a class="addthis_counter addthis_pill_style"></a>
+					</div>
+					<script type="text/javascript" src="http://biblefamilytree.info///s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52b779657c9f61e8"></script>
+				</div>
+			</div>
+		</div>
+		<div id="about" title="About Bible Family Tree" style="display:none;">
+			<img src="http://biblefamilytree.info/images/biblefamilytree.jpg" style="float:right;" alt="Bible Family Tree icon" />
+			<p style="margin-top:40px;width:61%;"><strong>Relationships.</strong>  More than any 
+			other topic, the Bible speaks about 
+			relationships. Chapter after chapter describes the relationships between husbands and wives, 
+			between fathers and children, between one nation and another, and the critical relationship 
+			between G-d and humanity.</p>
+			<p style="width:61%;">More than <strong>600</strong> verses (and over 50 whole chapters!) of Scripture are 
+			dedicated to describing family relationships.  We should consider how everything we 
+			do&mdash; the decisions we make, the words we speak, and the character we exhibit&mdash; 
+			how all of these things effect the family of mankind as well as our individual 
+			and corporate relationships with our Creator.</p>
+			<p style="width:61%;">&nbsp;</p>
+			<p style="width:61%;">This interactive family tree was created to invite and encourage discovery into the 
+			relationships between the individuals found in the Bible.  By understanding those 
+			relationships we can better comprehend the message of Scripture and apply its lessons to 
+			our own lives and relationships today.</p>
+			<p style="width:61%;">&nbsp;</p>
+			<p>There is a coming day promised in the Psalms:</p>
+			<p class="quote"><em>All the ends of the earth will remember and turn to the LORD, and all the 
+			<strong>families</strong> of the nations will worship before You.</em> (Psalm 22:27)</p>
+			<p>May the Most High hasten the day when all families are made whole before Him.</p>
+			<p>&nbsp;</p>
+			<p>This site was made possible thanks to the following technology:</p>
+			<ul>
+				<li><a href="https://developer.mozilla.org/en-US/docs/JavaScript" target="_blank">JavaScript</a></li>
+				<li><a href="http://www.w3.org/Style/CSS/" target="_blank">CSS</a></li>
+				<li><a href="http://d3js.org/" target="_blank">D3.js</a></li>
+				<li><a href="http://jquery.com/" target="_blank">jQuery</a></li>
+				<li><a href="http://www.mozilla.org/en-US/firefox/fx/" target="_blank">Mozilla Firefox</a></li>
+				<li><a href="http://www.google.com/chrome/" target="_blank">Google Chrome</a></li>
+			</ul>
+			<p>&nbsp;</p>
+			<p>This website is provided as a service of <strong><a href="http://www.ThePsalm119Foundation.org" target="_blank">The 
+			Psalm 119 Foundation</a></strong>.</p>
+			<p>All content, code, scripts (other than those noted above), and concepts are &copy; 2013-2017 
+			The Psalm 119 Foundation. All rights reserved.</p>
+		</div>
+		<div id="help" title="Bible Family Tree Help" style="display:none;">
+			<p style="color:red"><strong>This site requires a modern browser that supports HTML 5 and JavaScript.</strong></p>
+			<p>We <strong>highly</strong> recommend using a full-screen, computer-based (rather than 
+			a phone or tablet) browser to view this.</p>
+			<p>&nbsp;</p>
+			<h3>Touch screens</h3>
+			<p>Touch a circle once =  additional details</p>
+			<p>Touch a circle twice = expand or collapse child information</p>
+			<p>&nbsp;</p>
+			<h3>Non-touch screens</h3>
+			<p>Hover the cursor over a circle = additional details</p>
+			<p>Click a circle = expand or collapse child information</p>
+			<p>&nbsp;</p>
+			<p>Legend:</p>
+			<svg height="25%" width="100%" style="margin-top:5px">
+				<g class="node" transform="translate(10,0)">
+					<circle class="base-expanded" r="5"></circle>
+					<text x="10" dy="0.35em">Individual- all child information shown (click or touch to collapse)</text>
+				</g>
+				<g class="node" transform="translate(10,15)">
+					<circle class="base-collapsed" r="5"></circle>
+					<text x="10" dy="0.35em">Individual- child information hidden (click or touch to expand)</text>
+				</g>
+				<g class="node" transform="translate(10,30)">
+					<circle class="messianicLine-expanded" r="5"></circle>
+					<text x="10" dy="0.35em">Individual in the line of Messiah</text>
+				</g>
+				<g class="node" transform="translate(10,45)">
+					<circle class="major messianicLine-expanded" r="5"></circle>
+					<text x="10" dy="0.35em">Highlighted individual in the line of Messiah</text>
+				</g>
+				<g class="node" transform="translate(10,60)">
+					<circle class="priest-collapsed" r="5"></circle>
+					<text x="10" dy="0.35em">Levitical priest</text>
+				</g>
+				<g class="node" transform="translate(10,75)">
+					<circle class="Israel-collapsed" r="5"></circle>
+					<text x="10" dy="0.35em">Israelite</text>
+				</g>
+				<g class="node" transform="translate(10,90)">
+					<circle class="judge-collapsed" r="5"></circle>
+					<text x="10" dy="0.35em">Judge</text>
+				</g>
+			</svg>
+			<p>Spouses are identified in the details and are <strong>not</strong> shown via the connection lines.</p>
+			<p>&nbsp;</p>
+			<p>If you have any additional questions or concerns, please
+			<a href="http://www.ThePsalm119Foundation.org/contact-us.html" target="_blank">Contact Us</a> via 
+			<a href="http://www.ThePsalm119Foundation.org" target="_blank">The Psalm 119 Foundation website</a>.</p>
+		</div>
+		<div id="expand" title="Bible Family Tree" style="display:none;">
+			<p>Are you sure you want to show everybody at once?<br/>There are over 1,000 people in here!</p>
+			<p>&nbsp;</p>
+			<p><em>It's going to get a little crowded.</em></p>
+			<p>&nbsp;</p>
+			<p>
+				<span class="expandYes" id="expandYes">Yes.<br/>The more the merrier!</span>
+				<span class="expandNo" id="expandNo">No.<br/>It's too crowded already!</span>
+			</p>
+		</div>
+		<div id="expandInProgress" title="Bible Family Tree" style="display:none;">
+			<p>Please wait while we squeeze everyone in...</p>
+		</div>
+		<div id="expandComplete" title="Bible Family Tree" style="display:none;">
+			<p>All righty then... everybody is here!</p>
+			<p>&nbsp;</p>
+			<p>
+				<span class="expandCompleteOK" id="expandCompleteOK">OK</span>
+			</p>
+		</div>
+		<div id="footerNav">
+			<p>
+				<span id="p119f">&copy; 2013-2019 
+				<a class="p119fLink" href="http://www.thepsalm119foundation.org" target="_blank">The 
+				Psalm 119 Foundation</a>.</span> | 
+				<span class="helpLink" id="helpLink">Help</span> | 
+				<span class="aboutLink" id="aboutLink">About</span> |
+				<span id="expandLinkSection"><span class="expandLink" id="expandLink">Show All</span> |</span>
+				<span class="langLink"><a class="langLink" href="/telugu.html">తెలుగు</a></span>
+			</p>
+		</div>
+
+		<script type="text/javascript">
+			const margin = {
+				top:20, 
+				right:20, 
+				bottom:20,
+				left:120
+			};
+			
+			var width = 6000 - margin.right - margin.left,
+				height = 6000 - margin.top - margin.bottom,
+				i = 0,
+				root, moveTarget, nodes;
+
+			var tree = d3.layout.tree()
+				.size([height, width]);
+
+			var diagonal = d3.svg.diagonal()
+				.projection(function(d) { return [d.x, d.y]; });
+
+			const vis = d3.select("#main").append("svg:svg")
+				.attr('width', width + margin.right + margin.left)
+				.attr('height', height + margin.top + margin.bottom)
+				.append("svg:g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			var tooltipDiv = d3.select("#main").append("div")
+				.attr("class", "tooltip")
+				.style("opacity", 0)
+				.on("mouseup", hideToolTip)
+				.on("touchEnd", hideToolTip)
+				.on("mouseover", function(d) {
+					tooltipDiv.transition()
+						.duration(200)
+						.style("opacity", .9);
+				})
+				.on("mouseout", hideToolTip);
+				
+			d3.json("./genealogy.json", function(json) {
+				root = json;
+				root.x0 = width / 2;
+				root.y0 = 0;
+
+				update(root);
+				center();
+			});
+		</script>
+		
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-7275872-13']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
+		
+		<!-- RefTagger from Logos. Visit http://www.logos.com/reftagger. This code should appear directly before the </body> tag. -->
+		<script type="text/javascript" src="http://biblefamilytree.info/scripts/reftagger/referencetagging.js"></script>
+		<script type="text/javascript">
+			Logos.ReferenceTagging.lbsBibleVersion = "NASB";
+			Logos.ReferenceTagging.lbsLinksOpenNewWindow = true;
+			Logos.ReferenceTagging.lbsLogosLinkIcon = "dark";
+			Logos.ReferenceTagging.lbsNoSearchTagNames = [ "h2", "h3", "h3" ];
+			Logos.ReferenceTagging.lbsTargetSite = "biblia";
+			Logos.ReferenceTagging.lbsCssOverride = true;
+			Logos.ReferenceTagging.tag();
+		</script>
+	</body>
+</html>
